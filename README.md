@@ -33,6 +33,29 @@ git checkout --orphan temp
 UNION ALL
 (   SELECT * FROM table2
     EXCEPT
-    SELECT * FROM table1) 
+    SELECT * FROM table1)
 ```
 
+```SQL
+-- Recursive CTE
+WITH hierarchy AS (
+    SELECT     
+        e.id AS employee_id,
+        e.first_name,
+        e.last_name,
+        e.boss_id,
+        0 AS hierarchy_level
+    FROM employees AS e
+    WHERE e.manager_id IS NULL
+UNION ALL
+    SELECT   
+        e.id AS employee_id,
+        e.first_name,
+        e.last_name,
+        e.boss_id,
+        h.hierarchy_level + 1 AS hierarchy_level
+    FROM employees AS e
+        JOIN hierarchy AS h ON e.id = h.employee_id
+)
+SELECT * FROM hierarchy
+```
