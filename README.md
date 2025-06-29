@@ -59,3 +59,7 @@ UNION ALL
 )
 SELECT * FROM hierarchy
 ```
+
+## Bash
+
+- [Bash Cheatsheet](https://mywiki.wooledge.org/BashSheet)
